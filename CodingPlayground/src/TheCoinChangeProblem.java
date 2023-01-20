@@ -1,38 +1,51 @@
-// Dynamic Programming
-// Jan 12 2023
-
-// Given an amount and the denominations of coins available,
-// determine how many ways change can be made for amount. 
-// There is a limitless supply of each coin type.
-
 import java.util.*;
 import java.io.*;
 
 public class TheCoinChangeProblem {
-
-    static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    
+    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    
     public static void main(String[] args) throws IOException {
-        String[] parts = in.readLine().trim().split(" ");
-        int changeAmount = Integer.parseInt(parts[0]);
-        //int numCoins = Integer.parseInt(parts[1]);
-        int[] coins = Arrays.stream(in.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-
-
-        Solve(changeAmount, coins);
+        int[] nm = Arrays.stream(reader.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int[] coins = Arrays.stream(reader.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+        System.out.printf("%d\n", TheCoinChangeProblem.Solve(nm[0], nm[1], coins));
     }
 
-    public static void Solve(int totalChange, int[] coinValues) {
-        int[] dynam = new int[totalChange + 1]; 
-        
-        dynam[0] = 0;
+    public static long Solve(int n, int m, int[] coins) {
+        Arrays.sort(coins);
+        long[][] cache = new long[n + 1][m + 1]; //Default value is 0. Doesn't matter because we're building bottom up. 
+        //Top down this would not work
 
-        for (int i = 1; i <= totalChange; i++) {
-            for (int j = 0; j < coinValues.length; j++) {
-                //if (j)
+        //No change to make, no way to make it, ways to make change is 0
+        for (int j = 0; j < m + 1; j++) {
+            cache[0][j] = 0;
+        }
+
+        //We have no coins, can't make change, ways to make change is 0
+        for(int i = 0; i < n + 1; i++) {
+            cache[i][0] = 0;
+        }
+
+
+        //j = m, i = n
+        for (int i = 1; i < n + 1; i++) {
+            for (int j = 1; j < m + 1; j++) {
+                if (coins[j - 1] > i) 
+                { //Case where the coin is bigger than the change amount
+                    cache[i][j] = cache[i][j - 1];
+                } 
+                else if (coins[j - 1] == i) 
+                { //Case where the coin amount is equal to the change amonut
+                    cache[i][j] = 1 + cache[i][j - 1];
+                } 
+                else 
+                { //Case where the coin amount is less than the change amount
+                    cache[i][j] = cache[i - coins[j - 1]][j] + cache[i][j-1];
+                }
             }
         }
 
 
-        System.out.println(dynam[totalChange]);
+        return cache[n][m];
     }
 }
