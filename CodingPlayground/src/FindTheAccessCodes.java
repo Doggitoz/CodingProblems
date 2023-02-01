@@ -62,8 +62,8 @@ public class FindTheAccessCodes {
         // Expected outcome: 3
 
         // Test case three:
-        int[] caseThree = new int[2000];
-        System.out.println(solution(caseThree));
+        // int[] caseThree = new int[2000];
+        // System.out.println(solution(caseThree));
         // Expected outcome: idk, just big numbers to test time complexity
 
     }

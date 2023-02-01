@@ -19,6 +19,7 @@
  */
 
 import java.util.PriorityQueue;
+import java.util.Arrays;
 
 public class PrepareTheBunniesEscape {
     public static int solution(int[][] map) {
@@ -28,10 +29,10 @@ public class PrepareTheBunniesEscape {
 
         PriorityQueue<Coord> Q = new PriorityQueue<Coord>();
 
-        // for (int i = 0; i < h; i++) {
-        // System.out.println(Arrays.toString(map[i]));
-        // }
-        // System.out.println("------------------------------");
+        for (int i = 0; i < h; i++) {
+            System.out.println(Arrays.toString(map[i]));
+        }
+        System.out.println("------------------------------");
 
         // Add start slot to queue
         Q.add(new Coord(0, 0, 1, 1));
