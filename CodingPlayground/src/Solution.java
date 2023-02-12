@@ -45,6 +45,7 @@
  * 
 */
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Solution {
@@ -56,6 +57,27 @@ public class Solution {
         return keys;
     }
 
+    public static ArrayList<ArrayList<String>> Reduce(ArrayList<ArrayList<Integer>> unreduced, int buns) {
+        ArrayList<ArrayList<String>> reduced = new ArrayList<ArrayList<String>>();
+
+        ArrayList<Integer> keysInBuns = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i++) {
+            for (ArrayList<Integer> arr : unreduced) {
+                if (arr.contains(i)) {
+                    keysInBuns.add(i);
+                }
+            }
+        }
+
+        return reduced;
+    }
+
+    public static ArrayList<Integer> Intersection(ArrayList<Integer> i1, ArrayList<Integer> i2) {
+        ArrayList<Integer> intersection = new ArrayList<Integer>();
+
+        return intersection;
+    }
+
     public static void main(String[] args) {
         // Test case one:
         // int[][] solutionOne = solution(2, 1);
@@ -65,18 +87,53 @@ public class Solution {
         // Expected outcome: [[0], [0]]
 
         // Test case two:
-        int[][] solutionTwo = solution(5, 3);
-        for (int i = 0; i < solutionTwo.length; i++) {
-            System.out.println(Arrays.toString(solutionTwo[i]));
-        }
+        // int[][] solutionTwo = solution(5, 3);
+        // for (int i = 0; i < solutionTwo.length; i++) {
+        // System.out.println(Arrays.toString(solutionTwo[i]));
+        // }
         // Expected outcome: [[0, 1, 2, 3, 4, 5], [0, 1, 2, 6, 7, 8], [0, 3, 4, 6, 7,
         // 9], [1, 3, 5, 6, 8, 9], [2, 4, 5, 7, 8, 9]]
 
-        // TEst case three:
+        // Test case three:
         // int[][] solutionThree = solution(3, 2);
         // for (int i = 0; i < solutionThree.length; i++) {
         // System.out.println(Arrays.toString(solutionThree[i]));
         // }
         // Expected outcome: [[0, 1], [0, 2], [1, 2],]
+
+        // Reduce test case:
+        ArrayList<ArrayList<Integer>> reduceTestOne = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> Adder = new ArrayList<Integer>() {
+            {
+                add(1);
+                add(2);
+                add(3);
+                add(4);
+            }
+        };
+        reduceTestOne.add(Adder);
+        Adder = new ArrayList<Integer>() {
+            {
+                add(1);
+                add(2);
+                add(5);
+                add(6);
+            }
+        };
+        reduceTestOne.add(Adder);
+        Adder = new ArrayList<Integer>() {
+            {
+                add(3);
+                add(4);
+                add(5);
+                add(6);
+            }
+        };
+        reduceTestOne.add(Adder);
+        ArrayList<ArrayList<String>> reduced = Reduce(reduceTestOne);
+        for (ArrayList<String> arr : reduced) {
+            System.out.println(arr.toString());
+        }
+
     }
 }

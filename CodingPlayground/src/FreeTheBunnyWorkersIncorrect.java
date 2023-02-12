@@ -45,10 +45,10 @@
  * 
 */
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
 
-public class Solution {
+public class FreeTheBunnyWorkersIncorrect {
 
     public static int[][] solution(int num_buns, int num_required) {
         // Your code here
