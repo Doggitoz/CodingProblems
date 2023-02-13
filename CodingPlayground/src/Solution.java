@@ -59,40 +59,68 @@ public class Solution {
 
     public static ArrayList<ArrayList<String>> Reduce(ArrayList<ArrayList<Integer>> unreduced, int buns) {
         ArrayList<ArrayList<String>> reduced = new ArrayList<ArrayList<String>>();
+        ArrayList<Character> chars = new ArrayList<Character>();
 
+        boolean[] used = new boolean[10];
+        Arrays.fill(used, true);
+
+        // REMOVE KEYS IN ALL BUNNIES
         for (int i = 0; i < 10; i++) {
-            ArrayList<Integer> bunniesThatHave = new ArrayList<Integer>();
-            ArrayList<Integer> group = new ArrayList<Integer>();
-            //Populate the list with current \ key num
-            for (int j = 0; j < buns; j++) {
-                if (unreduced.get(j).contains(i)) {
-                    bunniesThatHave.add(j);
+            for (int bun = buns; bun < unreduced.size(); bun++) {
+                System.out.println("test1");
+                if (!unreduced.get(bun).contains(i)) {
+                    System.out.println("test");
+                    used[i] = false;
                 }
             }
-            group.add(i);
-            boolean valid = true;
-            for (int j = i + 1; j < 10; j++) {
-                
-                for (int k = 0; k < buns; k++) {
-                    // Must handle two cases here, if a bunny has the key that a previous didn't, or if the bunny doesn't have what a previous didnt
-                }
+        }
 
-                if (valid) {
-                    bunniesThatHave.add(j);
+        for (int i = 0; i < 10; i++) {
+            System.out.printf("Starting key number %d\n", i);
+            if (used[i]) {
+                System.out.println("Key has been used in a group already");
+                continue;
+            }
+
+            ArrayList<Integer> grouped = new ArrayList<Integer>();
+            grouped.add(i);
+            boolean firstInstance = true;
+            for (int bun = 0; bun < buns; bun++) {
+                ArrayList<Integer> currBun = unreduced.get(bun);
+                if (currBun.contains(i)) {
+                    if (firstInstance) {
+                        System.out.println("First instance of this key number");
+                        for (int k = 0; k < currBun.size(); k++) {
+                            int curr = currBun.get(k);
+                            if (used[k]) {
+                                System.out.println("Key has been used in a group already");
+                                continue;
+                            }
+                            if (curr == i) {
+                                continue;
+                            }
+                            grouped.add(currBun.get(k));
+                            System.out.printf("Adding %d to grouped\n", currBun.get(k));
+                        }
+                        firstInstance = false;
+                    } else {
+                        for (int k = 1; k < grouped.size(); k++) {
+
+                        }
+                    }
                 }
+            }
+            chars.add((char) (65 + 0));
+            System.out.println("New group:");
+            for (int num = 0; num < grouped.size(); num++) {
+                used[grouped.get(num)] = true;
+                System.out.println(grouped.get(num));
+                // System.out.println(num);
             }
         }
 
         return reduced;
     }
-
-    /*
-     * for (ArrayList<Integer> arr : unreduced) {
-                if (arr.contains(i)) {
-                    keysInBuns.add(i);
-                }
-            }
-     */
 
     public static ArrayList<Integer> Intersection(ArrayList<Integer> i1, ArrayList<Integer> i2) {
         ArrayList<Integer> intersection = new ArrayList<Integer>();
@@ -127,28 +155,28 @@ public class Solution {
         ArrayList<ArrayList<Integer>> reduceTestOne = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> Adder = new ArrayList<Integer>() {
             {
+                add(0);
                 add(1);
                 add(2);
                 add(3);
-                add(4);
             }
         };
         reduceTestOne.add(Adder);
         Adder = new ArrayList<Integer>() {
             {
+                add(0);
                 add(1);
-                add(2);
+                add(4);
                 add(5);
-                add(6);
             }
         };
         reduceTestOne.add(Adder);
         Adder = new ArrayList<Integer>() {
             {
+                add(2);
                 add(3);
                 add(4);
                 add(5);
-                add(6);
             }
         };
         reduceTestOne.add(Adder);
