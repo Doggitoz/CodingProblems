@@ -57,75 +57,94 @@ public class Solution {
         return keys;
     }
 
-    public static ArrayList<ArrayList<String>> Reduce(ArrayList<ArrayList<Integer>> unreduced, int buns) {
-        ArrayList<ArrayList<String>> reduced = new ArrayList<ArrayList<String>>();
-        ArrayList<Character> chars = new ArrayList<Character>();
+    public static ArrayList<ArrayList<Character>> Reduce(ArrayList<ArrayList<Integer>> unreduced, int buns) {
+        ArrayList<ArrayList<Character>> reduced = new ArrayList<ArrayList<Character>>();
+
+        for (int i = 0; i < buns; i++) {
+            reduced.add(new ArrayList<Character>());
+        }
 
         boolean[] used = new boolean[10];
         Arrays.fill(used, true);
+        int charCount = 0;
 
-        // REMOVE KEYS IN ALL BUNNIES
+        // This doesn't work, but assumption of all keys being passed each time
+        // MARKS ALL MISSING KEYS AS USED
+        // for (int i = 0; i < 10; i++) {
+        //     for (int j = 0; j < buns; j++) {
+        //         if (unreduced.get(j).contains(i)) {
+        //             used[i] = false;
+        //             break;
+        //         }
+        //     }
+        // }
+
+        // MARKS ALL UNIFORM KEYS AS USED
         for (int i = 0; i < 10; i++) {
-            for (int bun = buns; bun < unreduced.size(); bun++) {
-                System.out.println("test1");
-                if (!unreduced.get(bun).contains(i)) {
-                    System.out.println("test");
+            for (int j = 0; j < buns; j++) {
+                if (!unreduced.get(j).contains(i)) {
                     used[i] = false;
+                    break;
                 }
             }
         }
 
         for (int i = 0; i < 10; i++) {
-            System.out.printf("Starting key number %d\n", i);
             if (used[i]) {
-                System.out.println("Key has been used in a group already");
                 continue;
             }
-
-            ArrayList<Integer> grouped = new ArrayList<Integer>();
-            grouped.add(i);
-            boolean firstInstance = true;
-            for (int bun = 0; bun < buns; bun++) {
-                ArrayList<Integer> currBun = unreduced.get(bun);
-                if (currBun.contains(i)) {
-                    if (firstInstance) {
-                        System.out.println("First instance of this key number");
-                        for (int k = 0; k < currBun.size(); k++) {
-                            int curr = currBun.get(k);
-                            if (used[k]) {
-                                System.out.println("Key has been used in a group already");
-                                continue;
-                            }
-                            if (curr == i) {
-                                continue;
-                            }
-                            grouped.add(currBun.get(k));
-                            System.out.printf("Adding %d to grouped\n", currBun.get(k));
-                        }
-                        firstInstance = false;
-                    } else {
-                        for (int k = 1; k < grouped.size(); k++) {
-
+            ArrayList<Integer> intersection = new ArrayList<Integer>();
+            for (int j = 0; j < buns; j++) {
+                ArrayList<Integer> currBun = unreduced.get((j + i) % buns);
+                // If the current bunny is missing the identifier key
+                if (!currBun.contains(i)){
+                    continue;
+                }
+                //First instance found of this key
+                if (intersection.size() == 0) {
+                    for (Integer intg : currBun) {
+                        if (!used[intg]) {
+                            intersection.add(intg);
                         }
                     }
                 }
+                else {
+                    // Remove all keys that aren't unioned with the next bunny
+                    ArrayList<Integer> markToRemove = new ArrayList<Integer>();
+                    for (Integer intg : intersection) {
+                        if (!currBun.contains(intg)) {
+                            markToRemove.add(intg);
+                        }
+                    }
+                    for (Integer intg : markToRemove) {
+                        intersection.remove(intersection.indexOf(intg));
+                    }
+                }
+               
             }
-            chars.add((char) (65 + 0));
-            System.out.println("New group:");
-            for (int num = 0; num < grouped.size(); num++) {
-                used[grouped.get(num)] = true;
-                System.out.println(grouped.get(num));
-                // System.out.println(num);
+
+            // Mark selected intersection as used
+            for (Integer intg : intersection) {
+                used[intg] = true;
+            }
+
+            // Add character to each set bunnies where applicable
+            for (int j = 0; j < buns; j++) {
+                if (unreduced.get(j).contains(i)) {
+                    reduced.get(j).add((char)(65 + charCount));
+                }
+            }
+            charCount++;
+        }
+        
+        // If all keys are duplicated across all bunnies, reduce to one key each
+        if (reduced.get(0).size() == 0) {
+            for (int j = 0; j < buns; j++) {
+                reduced.get(j).add((char)(65 + charCount));
             }
         }
 
         return reduced;
-    }
-
-    public static ArrayList<Integer> Intersection(ArrayList<Integer> i1, ArrayList<Integer> i2) {
-        ArrayList<Integer> intersection = new ArrayList<Integer>();
-
-        return intersection;
     }
 
     public static void main(String[] args) {
@@ -159,6 +178,9 @@ public class Solution {
                 add(1);
                 add(2);
                 add(3);
+                add(4);
+                add(5);
+                add(6);
             }
         };
         reduceTestOne.add(Adder);
@@ -166,22 +188,42 @@ public class Solution {
             {
                 add(0);
                 add(1);
-                add(4);
-                add(5);
+                add(2);
+                add(3);
+                add(7);
+                add(8);
+                add(9);
             }
         };
         reduceTestOne.add(Adder);
         Adder = new ArrayList<Integer>() {
             {
+                add(0);
+                add(4);
+                add(5);
+                add(6);
+                add(7);
+                add(8);
+                add(9);
+            }
+        };
+        reduceTestOne.add(Adder);
+        Adder = new ArrayList<Integer>() {
+            {
+                add(1);
                 add(2);
                 add(3);
                 add(4);
                 add(5);
+                add(6);
+                add(7);
+                add(8);
+                add(9);
             }
         };
         reduceTestOne.add(Adder);
-        ArrayList<ArrayList<String>> reduced = Reduce(reduceTestOne, 3);
-        for (ArrayList<String> arr : reduced) {
+        ArrayList<ArrayList<Character>> reduced = Reduce(reduceTestOne, 4);
+        for (ArrayList<Character> arr : reduced) {
             System.out.println(arr.toString());
         }
 
