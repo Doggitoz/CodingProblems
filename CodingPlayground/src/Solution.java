@@ -60,17 +60,39 @@ public class Solution {
     public static ArrayList<ArrayList<String>> Reduce(ArrayList<ArrayList<Integer>> unreduced, int buns) {
         ArrayList<ArrayList<String>> reduced = new ArrayList<ArrayList<String>>();
 
-        ArrayList<Integer> keysInBuns = new ArrayList<Integer>();
         for (int i = 0; i < 10; i++) {
-            for (ArrayList<Integer> arr : unreduced) {
-                if (arr.contains(i)) {
-                    keysInBuns.add(i);
+            ArrayList<Integer> bunniesThatHave = new ArrayList<Integer>();
+            ArrayList<Integer> group = new ArrayList<Integer>();
+            //Populate the list with current \ key num
+            for (int j = 0; j < buns; j++) {
+                if (unreduced.get(j).contains(i)) {
+                    bunniesThatHave.add(j);
+                }
+            }
+            group.add(i);
+            boolean valid = true;
+            for (int j = i + 1; j < 10; j++) {
+                
+                for (int k = 0; k < buns; k++) {
+                    // Must handle two cases here, if a bunny has the key that a previous didn't, or if the bunny doesn't have what a previous didnt
+                }
+
+                if (valid) {
+                    bunniesThatHave.add(j);
                 }
             }
         }
 
         return reduced;
     }
+
+    /*
+     * for (ArrayList<Integer> arr : unreduced) {
+                if (arr.contains(i)) {
+                    keysInBuns.add(i);
+                }
+            }
+     */
 
     public static ArrayList<Integer> Intersection(ArrayList<Integer> i1, ArrayList<Integer> i2) {
         ArrayList<Integer> intersection = new ArrayList<Integer>();
@@ -130,7 +152,7 @@ public class Solution {
             }
         };
         reduceTestOne.add(Adder);
-        ArrayList<ArrayList<String>> reduced = Reduce(reduceTestOne);
+        ArrayList<ArrayList<String>> reduced = Reduce(reduceTestOne, 3);
         for (ArrayList<String> arr : reduced) {
             System.out.println(arr.toString());
         }
