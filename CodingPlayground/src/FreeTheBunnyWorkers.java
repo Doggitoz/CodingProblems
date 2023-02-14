@@ -49,7 +49,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Solution {
+public class FreeTheBunnyWorkers {
 
     static ArrayList<ArrayList<Integer>>[][] dynam;
 
@@ -107,7 +107,7 @@ public class Solution {
                     // Populate next bunnies with (totalBuns - 1)(reqBuns) assignment
                     for (int i = 1; i < totalBuns; i++) {
                         for (int j = 0; j < minusOne.get(i - 1).size(); j++) {
-                            System.out.printf("Adding %d to bunny %d\n", minusOne.get(i-1).get(j), i);
+                            //System.out.printf("Adding %d to bunny %d\n", minusOne.get(i-1).get(j), i);
                             keysets.get(i).add(minusOne.get(i-1).get(j));
                         }
                     }
@@ -116,13 +116,13 @@ public class Solution {
                     for (int i = 1; i < totalBuns; i++) {
                         //ArrayList<Character> currentBuilding = new ArrayList<Character>();
                         for (int j = 0; j < minusBoth.get(i - 1).size(); j++) {
-                            System.out.printf("Adding %d to bunny %d\n", minusBoth.get(i-1).get(j) + keysInFirst, i);
+                            //System.out.printf("Adding %d to bunny %d\n", minusBoth.get(i-1).get(j) + keysInFirst, i);
                             keysets.get(i).add(minusBoth.get(i-1).get(j) + keysInFirst);
                         }
                     }
                     keyAssignments = keysets;
                 }
-                System.out.printf("totalbuns: %d, reqbuns: %d, list: %s\n", totalBuns, reqBuns, keyAssignments.toString());
+                //System.out.printf("totalbuns: %d, reqbuns: %d, list: %s\n", totalBuns, reqBuns, keyAssignments.toString());
                 dynam[totalBuns][reqBuns] = keyAssignments;
             }
         }
