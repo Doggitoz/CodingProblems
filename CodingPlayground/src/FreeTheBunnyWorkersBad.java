@@ -48,7 +48,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Solution {
+public class FreeTheBunnyWorkersBad {
 
     static ArrayList<ArrayList<Character>>[][] dynam;
 
@@ -94,26 +94,34 @@ public class Solution {
                         keysets.add(new ArrayList<Integer>());
                     }
 
-                    ArrayList<ArrayList<Character>> dynamicBuild = dynam[totalBuns - 1][reqBuns - 1];
-                    int lastIndexOfFirst = 10 - NumKeys(dynamicBuild) - 1;
+                    ArrayList<ArrayList<Character>> minusBoth = dynam[totalBuns - 1][reqBuns - 1];
+                    ArrayList<ArrayList<Character>> minusOne = dynam[totalBuns - 1][reqBuns];
+                    int keysInFirst = NumKeys(dynam[totalBuns - 1][reqBuns]);
 
-                    // Fill in first row with 0 -> (10 - (dynam[totalBuns - 1][reqBuns - 1]) number of keys)
-                    for (int key = 0; key <= lastIndexOfFirst; key++) {
-                        System.out.printf("Adding %d to bunny 0\n", key);
-                        keysets.get(0).add(key);
+                    // Populate first bunny with (totalBuns - 1)(reqBuns) keys
+                    for (int i = 0; i < keysInFirst; i++) {
+                        keysets.get(0).add(i);
                     }
 
-                    // Match each rows final entires 
-                    for (int bunIndex = 1; bunIndex < totalBuns; bunIndex++) {
-                        for (char chI = 0; chI < dynamicBuild.get(bunIndex-1).size(); chI++) {
-                            // Convert character to key ints
-                            int currNewInt = 65 - dynamicBuild.get(bunIndex-1).get(chI);
-                            keysets.get(bunIndex).add(lastIndexOfFirst + 1 + currNewInt);
-                            System.out.printf("Adding %d to bunny %d\n", lastIndexOfFirst + 1 + currNewInt, bunIndex);
+                    // Populate next bunnies with (totalBuns - 1)(reqBuns) assignment
+                    for (int i = 1; i < totalBuns; i++) {
+                        //ArrayList<Character> currentBuilding = new ArrayList<Character>();
+                        for (int j = 0; j < minusOne.get(i - 1).size(); j++) {
+                            System.out.printf("Adding %d to bunny %d\n", (int)(minusOne.get(i-1).get(j) - 65), i);
+                            keysets.get(i).add((int)(minusOne.get(i-1).get(j) - 65));
                         }
                     }
-                    
-                    keyAssignments = Reduce(keysets, reqBuns);
+
+                    // Populate next bunnies with (totalBuns - 1)(reqBuns - 1) assignment + keysInFirst
+                    for (int i = 1; i < totalBuns; i++) {
+                        //ArrayList<Character> currentBuilding = new ArrayList<Character>();
+                        for (int j = 0; j < minusBoth.get(i - 1).size(); j++) {
+                            System.out.printf("Adding %d to bunny %d\n", (int)(minusBoth.get(i-1).get(j) - 65) + keysInFirst, i);
+                            keysets.get(i).add((int)((minusBoth.get(i-1).get(j) - 65)));
+                        }
+                    }
+
+                    keyAssignments = Reduce(keysets, totalBuns);
                 }
                 System.out.printf("totalbuns: %d, reqbuns: %d, list: %s\n", totalBuns, reqBuns, keyAssignments.toString());
                 dynam[totalBuns][reqBuns] = keyAssignments;
@@ -147,6 +155,7 @@ public class Solution {
 
         for (int i = 0; i < buns; i++) {
             reduced.add(new ArrayList<Character>());
+            System.out.printf("REDUCED LINE %d: %s\n", i, unreduced.get(i).toString());
         }
 
         boolean[] used = new boolean[10];
