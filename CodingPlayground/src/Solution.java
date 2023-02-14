@@ -50,14 +50,98 @@ import java.util.Arrays;
 
 public class Solution {
 
+    static ArrayList<ArrayList<Character>>[][] dynam;
+
     public static int[][] solution(int num_buns, int num_required) {
-        // Your code here
-        int[][] keys = new int[num_buns][10];
+        // Initialize dynamic programming array
+        dynam = new ArrayList[num_buns+1][num_required+1];
+        for (int i = 0; i <= num_buns; i++) {
+            for (int j = 0; j <= num_required; j++) {
+                dynam[i][j] = new ArrayList<ArrayList<Character>>();
+            }
+        }
+
+        for (int totalBuns = 1; totalBuns <= num_buns; totalBuns++) {
+            for (int reqBuns = 1; reqBuns <= num_required; reqBuns++) {
+                ArrayList<ArrayList<Character>> keyAssignments = new ArrayList<>();
+
+                // We don't care about these cases, since we'll never have fewer bunnies than required
+                if (reqBuns > totalBuns) {
+                    continue;
+                }
+
+                // BASE CASE: If required buns is 1, then all bunnies have the same key, [A]
+                if (reqBuns == 1) {
+                    ArrayList<Character> a = new ArrayList<Character>();
+                    a.add('A');
+                    for (int k = 0; k < totalBuns; k++) {
+                        keyAssignments.add(a);
+                    }
+                }
+                // BASE CASE: If required buns is the same as current buns, assign them each a new key
+                else if (reqBuns == totalBuns) {
+                    for (int k = 0; k < totalBuns; k++) {
+                        ArrayList<Character> charList = new ArrayList<Character>();
+                        charList.add((char)(k + 65));
+                        keyAssignments.add(charList);
+                    }
+                }
+                // ALL OTHER CASES
+                else {
+                    // Initialize a temporary list to keep track of the new collection
+                    ArrayList<ArrayList<Integer>> keysets = new ArrayList<ArrayList<Integer>>();
+                    for (int arr = 0; arr < totalBuns; arr++) {
+                        keysets.add(new ArrayList<Integer>());
+                    }
+
+                    ArrayList<ArrayList<Character>> dynamicBuild = dynam[totalBuns - 1][reqBuns - 1];
+                    int lastIndexOfFirst = 10 - NumKeys(dynamicBuild) - 1;
+
+                    // Fill in first row with 0 -> (10 - (dynam[totalBuns - 1][reqBuns - 1]) number of keys)
+                    for (int key = 0; key <= lastIndexOfFirst; key++) {
+                        System.out.printf("Adding %d to bunny 0\n", key);
+                        keysets.get(0).add(key);
+                    }
+
+                    // Match each rows final entires 
+                    for (int bunIndex = 1; bunIndex < totalBuns; bunIndex++) {
+                        for (char chI = 0; chI < dynamicBuild.get(bunIndex-1).size(); chI++) {
+                            // Convert character to key ints
+                            int currNewInt = 65 - dynamicBuild.get(bunIndex-1).get(chI);
+                            keysets.get(bunIndex).add(lastIndexOfFirst + 1 + currNewInt);
+                            System.out.printf("Adding %d to bunny %d\n", lastIndexOfFirst + 1 + currNewInt, bunIndex);
+                        }
+                    }
+                    
+                    keyAssignments = Reduce(keysets, reqBuns);
+                }
+                System.out.printf("totalbuns: %d, reqbuns: %d, list: %s\n", totalBuns, reqBuns, keyAssignments.toString());
+                dynam[totalBuns][reqBuns] = keyAssignments;
+            }
+        }
+
+        // Convert from charater representation back into int representation
+        ArrayList<ArrayList<Character>> selection = dynam[num_buns][num_required];
+        int[][] keys = CharToInt(selection, num_buns, num_required, 0);
 
         return keys;
     }
 
-    //SHOULD ALSO FIGURE OUT A WAY TO GET KEY NUMBERS FROM THIS
+
+    // Convert from charater representation back into int representation
+    public static int[][] CharToInt(ArrayList<ArrayList<Character>> selection, int num_buns, int num_required, int startIndex) {
+        int numKeysPerBunny = selection.get(0).size();
+        int[][] keys = new int[num_buns][numKeysPerBunny];
+        for (int i = 0; i < num_buns; i++) {
+            for (int j = 0; j < numKeysPerBunny; j++) {
+                int charToInt = (int) selection.get(i).get(j);
+                keys[i][j] = (charToInt - 65 + startIndex); //Convert from char back into integer
+            }
+        }
+        return keys;
+    }
+
+    // Simplify the passed in integer list by grouping together key sets that are uniform across the lists
     public static ArrayList<ArrayList<Character>> Reduce(ArrayList<ArrayList<Integer>> unreduced, int buns) {
         ArrayList<ArrayList<Character>> reduced = new ArrayList<ArrayList<Character>>();
 
@@ -68,17 +152,6 @@ public class Solution {
         boolean[] used = new boolean[10];
         Arrays.fill(used, true);
         int charCount = 0;
-
-        // This doesn't work, but assumption of all keys being passed each time
-        // MARKS ALL MISSING KEYS AS USED
-        // for (int i = 0; i < 10; i++) {
-        //     for (int j = 0; j < buns; j++) {
-        //         if (unreduced.get(j).contains(i)) {
-        //             used[i] = false;
-        //             break;
-        //         }
-        //     }
-        // }
 
         // MARKS ALL UNIFORM KEYS AS USED
         for (int i = 0; i < 10; i++) {
@@ -148,13 +221,28 @@ public class Solution {
         return reduced;
     }
 
+    // Return the number of unique keys that exist in character list form
+    public static int NumKeys(ArrayList<ArrayList<Character>> list) {
+        ArrayList<Character> chars = new ArrayList<Character>();
+
+        for (ArrayList<Character> charList : list) {
+            for (Character ch : charList) {
+                if (!chars.contains(ch)) {
+                    chars.add(ch);
+                }
+            }
+        }
+
+        return chars.size();
+    }
+
     public static void main(String[] args) {
-        // Test case one:
+        //Test case one:
         // int[][] solutionOne = solution(2, 1);
         // for (int i = 0; i < solutionOne.length; i++) {
-        // System.out.println(Arrays.toString(solutionOne[i]));
+        //     System.out.println(Arrays.toString(solutionOne[i]));
         // }
-        // Expected outcome: [[0], [0]]
+        //Expected outcome: [[0], [0]]
 
         // Test case two:
         // int[][] solutionTwo = solution(5, 3);
@@ -171,62 +259,67 @@ public class Solution {
         // }
         // Expected outcome: [[0, 1], [0, 2], [1, 2],]
 
-        // Reduce test case:
-        ArrayList<ArrayList<Integer>> reduceTestOne = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> Adder = new ArrayList<Integer>() {
-            {
-                add(0);
-                add(1);
-                add(2);
-                add(3);
-                add(4);
-                add(5);
-                add(6);
-            }
-        };
-        reduceTestOne.add(Adder);
-        Adder = new ArrayList<Integer>() {
-            {
-                add(0);
-                add(1);
-                add(2);
-                add(3);
-                add(7);
-                add(8);
-                add(9);
-            }
-        };
-        reduceTestOne.add(Adder);
-        Adder = new ArrayList<Integer>() {
-            {
-                add(0);
-                add(4);
-                add(5);
-                add(6);
-                add(7);
-                add(8);
-                add(9);
-            }
-        };
-        reduceTestOne.add(Adder);
-        Adder = new ArrayList<Integer>() {
-            {
-                add(1);
-                add(2);
-                add(3);
-                add(4);
-                add(5);
-                add(6);
-                add(7);
-                add(8);
-                add(9);
-            }
-        };
-        reduceTestOne.add(Adder);
-        ArrayList<ArrayList<Character>> reduced = Reduce(reduceTestOne, 4);
-        for (ArrayList<Character> arr : reduced) {
-            System.out.println(arr.toString());
+        //Test case four:
+        int[][] solutionFour = solution(3, 2);
+        for (int i = 0; i < solutionFour.length; i++) {
+            System.out.println(Arrays.toString(solutionFour[i]));
         }
+
+        //Reduce test case:
+        // ArrayList<ArrayList<Integer>> reduceTestOne = new ArrayList<ArrayList<Integer>>();
+        // ArrayList<Integer> Adder = new ArrayList<Integer>() {
+        //     {
+        //         add(0);
+        //         add(1);
+        //         add(2);
+        //         add(5);
+        //         add(6);
+        //         add(3);
+        //         add(4);
+        //     }
+        // };
+        // reduceTestOne.add(Adder);
+        // Adder = new ArrayList<Integer>() {
+        //     {
+        //         add(7);
+        //         add(8);
+        //         add(2);
+        //         add(3);
+        //         add(4);
+        //         add(0);
+        //         add(1);
+        //     }
+        // };
+        // reduceTestOne.add(Adder);
+        // Adder = new ArrayList<Integer>() {
+        //     {
+        //         add(0);
+        //         add(1);
+        //         add(2);
+        //         add(3);
+        //         add(5);
+        //         add(7);
+        //         add(9);
+        //     }
+        // };
+        // reduceTestOne.add(Adder);
+        // Adder = new ArrayList<Integer>() {
+        //     {
+        //         add(0);
+        //         add(1);
+        //         add(2);
+        //         add(4);
+        //         add(6);
+        //         add(8);
+        //         add(9);
+        //     }
+        // };
+        // reduceTestOne.add(Adder);
+        // ArrayList<ArrayList<Character>> reduced = Reduce(reduceTestOne, reduceTestOne.size());
+        // for (ArrayList<Character> arr : reduced) {
+        //     System.out.println(arr.toString());
+        // }
+        // System.out.println(NumKeys(reduced));
 
     }
 }
