@@ -32,6 +32,8 @@ public class Solution {
 
         System.out.printf("Distance north: %d\nDistance south: %d\n", distanceNorth, distanceSouth);
 
+        int numDirections = 0;
+
         while (!Q.isEmpty()) {
             Coord curr = Q.poll();
 
@@ -40,10 +42,23 @@ public class Solution {
                 continue;
             }
 
+            // If ray hits you
+            if (HitsPoint(curr, your_position[0], your_position[1])) {
+                continue;
+            }
+
+            // If ray hits enemy
+            if (HitsPoint(curr, trainer_position[0], trainer_position[1])) {
+                numDirections++;
+                continue;
+            }
+
+            //Calculate new bounce location, flip vector, add to Q
+
         }
 
 
-        return -1;
+        return numDirections;
     }
 
     public static boolean HitsPoint(Coord c, int x, int y) {
@@ -62,7 +77,7 @@ public class Solution {
         return Math.sqrt(Math.pow(x - a.x, 2) + Math.pow(y - a.y, 2));
     }
 
-    static class Coord implements Comparable {
+    static class Coord implements Comparable<Coord> {
         float range;
         int x;
         int y;
@@ -75,8 +90,7 @@ public class Solution {
             this.dir = dir;
         }
 
-        public int compareTo(Object o) {
-            // TODO Auto-generated method stub
+        public int compareTo(Solution.Coord o) {
             return 0;
         }
     }

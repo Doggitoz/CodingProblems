@@ -5,4 +5,8 @@
         "lib/**/*.jar"
     ],
     "java.debug.settings.onBuildFailureProceed": true
+	"files.exclude": {
+    "**/.settings": false
+  }
+  "java.settings.url":"C:/Users/cpWhe/Documents/GitHub/CodingProblems/CodingPlayground/org.eclipse.jdt.core.prefs"
 }
