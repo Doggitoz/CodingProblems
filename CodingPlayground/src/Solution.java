@@ -19,12 +19,14 @@ public class Solution {
 
         // LOGIC TO ADD ALL INITIAL 
         // Add all primary cardinal directions (weird edge cases w how my formula works)
-        Q.add(new Coord(distance, your_position[0], your_position[1], new DirVect(0, 1)));
-        Q.add(new Coord(distance, your_position[0], your_position[1], new DirVect(0, -1)));
-        Q.add(new Coord(distance, your_position[0], your_position[1], new DirVect(1, 0)));
-        Q.add(new Coord(distance, your_position[0], your_position[1], new DirVect(-1, 0)));
+        //Q.add(new Coord(distance, your_position[0], your_position[1], new DirVect(0, 1)));
+        //Q.add(new Coord(distance, your_position[0], your_position[1], new DirVect(0, -1)));
+        //Q.add(new Coord(distance, your_position[0], your_position[1], new DirVect(1, 0)));
+        //Q.add(new Coord(distance, your_position[0], your_position[1], new DirVect(-1, 0)));
 
         // Will need to add one case that is just shooting straight at the enemy
+        DirVect straightToEnemy = new DirVect((int)(trainer_position[0]-your_position[0]), (int)(trainer_position[1]-your_position[0]));
+        Q.add(new Coord(distance, your_position[0], your_position[1], straightToEnemy));
 
         // Calculate the distance required for wall bounce logic
         int distanceNorth = dimensions[1] - your_position[1] + dimensions[1] - trainer_position[1];
@@ -37,23 +39,25 @@ public class Solution {
         while (!Q.isEmpty()) {
             Coord curr = Q.poll();
 
-            // Distance from this point to enemy is too big, don't care about any more logic
+            // Distance from this point to enemy is too much for range
             if (Distance(curr, your_position[0], your_position[1]) > curr.range) {
                 continue;
             }
 
+            Coord hit = null;
+
             // If ray hits you
-            if (HitsPoint(curr, your_position[0], your_position[1])) {
+            if (HitsPoint(curr, your_position[0], your_position[1], hit)) {
                 continue;
             }
 
             // If ray hits enemy
-            if (HitsPoint(curr, trainer_position[0], trainer_position[1])) {
+            if (HitsPoint(curr, trainer_position[0], trainer_position[1], hit)) {
                 numDirections++;
                 continue;
             }
 
-            //Calculate new bounce location, flip vector, add to Q
+            // Calculate new bounce location, flip vector, add to Q
 
         }
 
@@ -61,10 +65,31 @@ public class Solution {
         return numDirections;
     }
 
-    public static boolean HitsPoint(Coord c, int x, int y) {
-        //probably use this https://stackoverflow.com/questions/17692922/check-is-a-point-x-y-is-between-two-points-drawn-on-a-straight-line
+    public static boolean HitsPoint(Coord a, int x, int y, Coord b) {
+        // https://stackoverflow.com/questions/328107/how-can-you-determine-a-point-is-between-two-other-points-on-a-line-segment
 
-        return false;
+        float crossProduct = (y - a.y) * (b.x - a.x) - (x - a.x) * (b.y - a.y);
+
+        if (Math.abs(crossProduct) != 0) {
+            return false;
+        }
+
+        float dotProduct = (x - a.x) * (b.x - a.x) + (y - a.y) * (b.y - a.y);
+        if (dotProduct < 0) {
+            return false;
+        }
+
+        float squaredLengthba = (b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y);
+        if (dotProduct > squaredLengthba) {
+            return false;
+        }
+
+        //Prevents initial location from triggering hit
+        if (a.x == x && a.y == y) {
+            return false;
+        }
+
+        return true;
     }
 
     //public static Coord Bounce()
@@ -79,8 +104,8 @@ public class Solution {
 
     static class Coord implements Comparable<Coord> {
         float range;
-        int x;
-        int y;
+        float x;
+        float y;
         DirVect dir;
 
         public Coord(float range, int x, int y, DirVect dir) {
@@ -109,7 +134,7 @@ public class Solution {
 
         // Test case one: [3,2], [1,1], [2,1], 4
 
-        System.out.println(solution(new int[]{3, 2}, new int[]{1, 1}, new int[]{2, 1}, 4));
+        //System.out.println(solution(new int[]{3, 2}, new int[]{1, 1}, new int[]{2, 1}, 4));
 
         // Expected outcome: 7
 
@@ -117,6 +142,11 @@ public class Solution {
         // Coord a = new Coord(0, 1, 1, new DirVect(0, 0));
         // Coord b = new Coord(0, 2, 3, new DirVect(0, 0));
         // System.out.println(Distance(a, b));
+
+        // Hit point test:
+        // Coord a = new Coord(0, 1, 1, new DirVect(1, 0));
+        // Coord b = new Coord(0, 3, 1, new DirVect(0, 0));
+        // System.out.println(HitsPoint(a, 1, 1, b));
     }
 
 }

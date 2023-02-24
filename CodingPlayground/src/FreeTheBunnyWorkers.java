@@ -53,7 +53,7 @@ public class FreeTheBunnyWorkers {
 
     static ArrayList<ArrayList<Integer>>[][] dynam;
 
-    public static int[][] solution(int num_buns, int num_required) {
+    @SuppressWarnings("unchecked") public static int[][] solution(int num_buns, int num_required) {
         // Initialize dynamic programming array
         dynam = new ArrayList[num_buns+1][num_required+1];
         for (int i = 0; i <= num_buns; i++) {
