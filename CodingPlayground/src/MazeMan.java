@@ -19,8 +19,8 @@ public class MazeMan {
         int entranceCount = 0;
         int unreachable = 0;
 
-        PriorityQueue<Coord> entrances = new PriorityQueue<Coord>();
-        PriorityQueue<Coord> search = new PriorityQueue<Coord>();
+        Queue<Coord> entrances = new PriorityQueue<Coord>();
+        Queue<Coord> search = new PriorityQueue<Coord>();
         // Top wall
         for (int i = 0; i < m; i++) {
             if (maze[0][i] == 'X') continue;
@@ -80,15 +80,12 @@ public class MazeMan {
         System.out.printf("%d %d", entranceCount, unreachable);
     }
 
-    public static class Coord implements Comparable<Coord> {
+    public static class Coord {
         int x;
         int y;
         public Coord(int x, int y) {
             this.x = x;
             this.y = y;
-        }
-        public int compareTo(Coord o) {
-            return 0;
         }
     }
 }

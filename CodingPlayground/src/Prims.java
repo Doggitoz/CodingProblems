@@ -1,26 +1,11 @@
 import java.io.*;
 import java.util.*;
 
-public class PrimsUndirected {
-    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    public static void main(String[] args) throws IOException{
-        int[] nm = Arrays.stream(reader.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
-        Node[] nodes = new Node[nm[0]];
-        for (int i = 0; i < nm[0]; i++) {
-            nodes[i] = new Node(i + 1);
-        }
-        for (int i = 0; i < nm[1]; i++) {
-            int[] parts = Arrays.stream(reader.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
-            // Creates an edge from a to b, and from b to a. It is technically directed, we just reflect it
-            nodes[parts[0]-1].addAdjacency(nodes[parts[1]-1], parts[2]);
-            nodes[parts[1]-1].addAdjacency(nodes[parts[0]-1], parts[2]);
-        }
-        int start = Integer.parseInt(reader.readLine());
-        Prims(nodes, start);
-    }
+public class Prims {
+    // Prims is good at large graphs, but only works on connected graphs
 
     // Node[] nodes assumes a preconstructed array of nodes from numbers 1 -> nodes.length
-    public static void Prims(Node[] nodes, int start) {
+    public static void PrimsAlg(Node[] nodes, int start) {
         boolean[] visited = new boolean[nodes.length];
         visited[start - 1] = true;
         int minSum = 0;
@@ -44,7 +29,7 @@ public class PrimsUndirected {
             // Add weight of just added edge
             minSum += e.weight;
 
-            // Add all 
+            // Add all edges from the newly added node to queue
             for (Edge f : e.node.adj) {
                 queue.add(f);
             }
@@ -63,7 +48,7 @@ public class PrimsUndirected {
             this.adj = new ArrayList<>();
         }
 
-        // Creates an undirected edge from 
+        // Creates a directed edge from this to Node node
         public void addAdjacency(Node node, int weight) {
             this.adj.add(new Edge(node, weight));
         }
@@ -85,5 +70,22 @@ public class PrimsUndirected {
             // if the weights are equal, return 0.
         }
 
+    }
+    
+    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException{
+        int[] nm = Arrays.stream(reader.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+        Node[] nodes = new Node[nm[0]];
+        for (int i = 0; i < nm[0]; i++) {
+            nodes[i] = new Node(i + 1);
+        }
+        for (int i = 0; i < nm[1]; i++) {
+            int[] parts = Arrays.stream(reader.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+            // Creates an edge from a to b, and from b to a. This essential accomplishes an undirected graph
+            nodes[parts[0]-1].addAdjacency(nodes[parts[1]-1], parts[2]);
+            nodes[parts[1]-1].addAdjacency(nodes[parts[0]-1], parts[2]);
+        }
+        int start = Integer.parseInt(reader.readLine());
+        PrimsAlg(nodes, start);
     }
 }

@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class GraphDFS {
+    // Time complexity: O(V + E)
     public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException {
         Graph g = new Graph(7);
