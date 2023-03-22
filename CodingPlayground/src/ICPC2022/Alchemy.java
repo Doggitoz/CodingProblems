@@ -1,4 +1,6 @@
-import java.util.*;
+package ICPC2022;
+
+//import java.util.*;
 import java.io.*;
 
 public class Alchemy {

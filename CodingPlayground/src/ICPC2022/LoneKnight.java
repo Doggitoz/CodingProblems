@@ -1,3 +1,7 @@
+package ICPC2022;
+
+// https://open.kattis.com/problems/loneknight
+
 import java.util.*;
 import java.io.*;
 
@@ -47,7 +51,6 @@ public class LoneKnight {
 
         // Each query
         for (int i = 0; i < nq[1]; i++) {
-            boolean[][] visited = new boolean[boards.length][boards[0].length];
             int[] pos = Arrays.stream(reader.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
             Queue<Coord> Q = new LinkedList<Coord>();
 
@@ -65,16 +68,20 @@ public class LoneKnight {
 
             // BFS Explore from knight position until you hit a board bigger than or equal to 3x3
             boolean validStart = false;
-            Q.add(new Coord(start.x, start.y, UpOrDown(pos[1], start), LeftOrRight(pos[0], start)));
+            Q.add(new Coord(start.x, start.y, pos[0], pos[1]));
             while (!Q.isEmpty()) {
                 Coord c = Q.poll();
-                if (c.x < 0 || c.x >= boards.length) continue;
-                if (c.y < 0 || c.y >= boards[0].length) continue;
-                Board curr = boards[c.x][c.y];
-                if (visited[curr.x][curr.y]) continue;
-                visited[curr.x][curr.y] = true;
+                if (c.boardX < 0 || c.boardX >= boards.length) continue;
+                if (c.boardY < 0 || c.boardY >= boards[0].length) continue;
+                if (xs.contains(c.knightX) || ys.contains(c.knightY)) continue;
+
+                Board curr = boards[c.boardX][c.boardY];
+                if (curr.localVisited[curr.xHigh - c.knightX][curr.yHigh - c.knightY]) continue;
+                curr.localVisited[curr.xHigh - c.knightX][curr.yHigh - c.knightY] = true;
+                
                 if (curr.GetLengthX() == 3 && curr.GetLengthY() == 3) {
-                    if (c.UpDown == Orientation.N && c.LeftRight == Orientation.N) { // Board size 3x3 and start in middle
+                    if (pos[0] == curr.xLow + 2 && pos[1] == curr.yLow + 2) { // Board size 3x3 and start in middle
+                        System.out.println("In middle of 3x3");
                         break;
                     }
                     else {
@@ -88,37 +95,28 @@ public class LoneKnight {
                 }
                 if (curr.GetLengthX() == 1 && curr.GetLengthY() == 1) break;
                 if (curr.GetLengthX() == 1) {
-                    Q.add(new Coord(c.x + 1, c.y, c.UpDown, c.LeftRight));
-                    Q.add(new Coord(c.x - 1, c.y, c.UpDown, c.LeftRight));
+                    Q.add(new Coord(c.boardX + 1, c.boardY, c.knightX + 2, c.knightY + 1));
+                    Q.add(new Coord(c.boardX + 1, c.boardY, c.knightX + 2, c.knightY - 1));
+                    Q.add(new Coord(c.boardX - 1, c.boardY, c.knightX - 2, c.knightY + 1));
+                    Q.add(new Coord(c.boardX - 1, c.boardY, c.knightX - 2, c.knightY - 1));
                     continue;
                 }
                 if (curr.GetLengthY() == 1) {
-                    Q.add(new Coord(c.x, c.y + 1, c.UpDown, c.LeftRight));
-                    Q.add(new Coord(c.x, c.y - 1, c.UpDown, c.LeftRight));
+                    Q.add(new Coord(c.boardX, c.boardY + 1, c.knightX + 1, c.knightY + 2));
+                    Q.add(new Coord(c.boardX, c.boardY + 1, c.knightX + 1, c.knightY - 2));
+                    Q.add(new Coord(c.boardX, c.boardY - 1, c.knightX - 1, c.knightY + 2));
+                    Q.add(new Coord(c.boardX, c.boardY - 1, c.knightX - 1, c.knightY - 2));
                     continue;
                 }
                 if (curr.GetLengthX() == 2 && curr.GetLengthY() == 2) {
-                    //THIS IS SO BAD HAHAHA
-                    if (c.LeftRight == Orientation.Right) {
-                        if (c.UpDown == Orientation.Up) {
-                            Q.add(new Coord(curr.x + 1, curr.y, Orientation.Down, Orientation.Left));
-                            Q.add(new Coord(curr.x, curr.y + 1, Orientation.Down, Orientation.Left));
-                        }
-                        else {
-                            Q.add(new Coord(curr.x + 1, curr.y, Orientation.Up, Orientation.Left));
-                            Q.add(new Coord(curr.x, curr.y - 1, Orientation.Up, Orientation.Left));
-                        }
-                    }
-                    else {
-                        if (c.UpDown == Orientation.Up) {
-                            Q.add(new Coord(curr.x + 1, curr.y, Orientation.Down, Orientation.Right));
-                            Q.add(new Coord(curr.x, curr.y + 1, Orientation.Down, Orientation.Right));
-                        }
-                        else {
-                            Q.add(new Coord(curr.x + 1, curr.y, Orientation.Up, Orientation.Right));
-                            Q.add(new Coord(curr.x, curr.y - 1, Orientation.Up, Orientation.Right));
-                        }
-                    }
+                    Q.add(new Coord(c.boardX + 1, c.boardY, c.knightX + 2, c.knightY + 1));
+                    Q.add(new Coord(c.boardX + 1, c.boardY, c.knightX + 2, c.knightY - 1));
+                    Q.add(new Coord(c.boardX - 1, c.boardY, c.knightX - 2, c.knightY + 1));
+                    Q.add(new Coord(c.boardX - 1, c.boardY, c.knightX - 2, c.knightY - 1));
+                    Q.add(new Coord(c.boardX, c.boardY + 1, c.knightX + 1, c.knightY + 2));
+                    Q.add(new Coord(c.boardX, c.boardY + 1, c.knightX + 1, c.knightY - 2));
+                    Q.add(new Coord(c.boardX, c.boardY - 1, c.knightX - 1, c.knightY + 2));
+                    Q.add(new Coord(c.boardX, c.boardY - 1, c.knightX - 1, c.knightY - 2));
                     continue;
                 }
                 if (curr.GetLengthX() == 2) {
@@ -168,32 +166,14 @@ public class LoneKnight {
         return -1;
     }
 
-    public static Orientation LeftOrRight(int x, Board b) {
-        // Assume that board is of 2xN
-        System.out.printf("Checking if %d is on left (%d) or right (%d)\n", x, b.xLow+1, b.xHigh-1);
-        if (x == b.xLow + 1) return Orientation.Left;
-        if (x == b.xHigh - 1) return Orientation.Right;
-        return Orientation.N;
-    }
-
-    public static Orientation UpOrDown(int y, Board b) {
-        // Assume that board is of 2xN
-        System.out.printf("Checking if %d is on up (%d) or down (%d)\n", y, b.yLow+1, b.yHigh-1);
-        if (y == b.yHigh - 1) return Orientation.Up;
-        if (y == b.yLow + 1) return Orientation.Down;
-        return Orientation.N;
-    }
-
     public static class Coord {
-        int x;
-        int y;
-        Orientation UpDown;
-        Orientation LeftRight;
-        public Coord(int x, int y, Orientation UpDown, Orientation LeftRight) {
-            this.x = x;
-            this.y = y;
-            this.UpDown = UpDown;
-            this.LeftRight = LeftRight;
+        int boardX;
+        int boardY;
+        int knightX;
+        int knightY;
+        public Coord(int boardX, int boardY, int knightX, int knightY) {
+            this.boardX = boardX;
+            this.boardY = boardY;
         }
     }
 
@@ -204,6 +184,7 @@ public class LoneKnight {
         int yHigh;
         int x;
         int y;
+        public boolean[][] localVisited;
 
         public Board(int x1, int x2, int y1, int y2, int x, int y) {
             xLow = x1;
@@ -212,6 +193,7 @@ public class LoneKnight {
             yHigh = y2;
             this.x = x;
             this.y = y;
+            localVisited = new boolean[GetLengthX()][GetLengthY()];
         }
 
         public int GetLengthX() {
@@ -221,9 +203,5 @@ public class LoneKnight {
         public int GetLengthY() {
             return yHigh - yLow - 1;
         }
-    }
-
-    public enum Orientation {
-        Up, Down, Left, Right, N
     }
 }

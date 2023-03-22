@@ -1,3 +1,4 @@
+package GoogleFoobar;
 /*
  * You are now the fire marshal. It is not a fun job to have. You have a layout of a room in the building as a 2D grid. 
  * There are known locations that people will occupy, there are known locations that people cannot walk into or out of, 

@@ -1,3 +1,5 @@
+package ICPC2022;
+
 // https://open.kattis.com/problems/chocolatechipfabrication
 
 import java.util.*;
