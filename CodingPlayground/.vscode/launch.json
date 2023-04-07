@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DataStructuresTest",
+            "request": "launch",
+            "mainClass": "DataStructures.DataStructuresTest",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "TetrisGeneration",
             "request": "launch",
             "mainClass": "ICPC2021.TetrisGeneration",

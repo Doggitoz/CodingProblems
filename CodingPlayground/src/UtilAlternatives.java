@@ -75,7 +75,6 @@ public class UtilAlternatives {
                 head = newNode;
                 return;
             }
-
             Node last = head;
             while (last.next != null) {
                 last = last.next;
@@ -85,16 +84,21 @@ public class UtilAlternatives {
         }
 
         public static int poll() {
-            if (size > 1) {
-                Node newHead = head.next;
-            }
+            if (size == 0) throw new RuntimeException("LinkedList is empty");
+            size--;
             Node temp = head;
-
+            if (size > 1) {
+                head = head.next;
+            }
+            else {
+                head = null;
+            }
             return temp.data;
         }
 
         public static int peek() {
             return head.data;
         }
+
     }
 }
