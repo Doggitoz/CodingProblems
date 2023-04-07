@@ -1,0 +1,252 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "TetrisGeneration",
+            "request": "launch",
+            "mainClass": "ICPC2021.TetrisGeneration",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "ErodingPillars",
+            "request": "launch",
+            "mainClass": "ICPC2022.ErodingPillars",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "BranchManager",
+            "request": "launch",
+            "mainClass": "ICPC2022.BranchManager",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "CreativeAccounting",
+            "request": "launch",
+            "mainClass": "ICPC2022.CreativeAccounting",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "FindTheAccessCodes",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.FindTheAccessCodes",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "FreeTheBunnyWorkers",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.FreeTheBunnyWorkers",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "FreeTheBunnyWorkersBad",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.FreeTheBunnyWorkersBad",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "FreeTheBunnyWorkersIncorrect",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.FreeTheBunnyWorkersIncorrect",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "FuelInjectionPerfection",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.FuelInjectionPerfection",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "PleasePassTheCodedMessages",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.PleasePassTheCodedMessages",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "PrepareTheBunniesEscape",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.PrepareTheBunniesEscape",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "RoomEvacuation",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.RoomEvacuation",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "Solution",
+            "request": "launch",
+            "mainClass": "GoogleFoobar.Solution",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "GridlandMetro",
+            "request": "launch",
+            "mainClass": "GridlandMetro",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "Alchemy",
+            "request": "launch",
+            "mainClass": "ICPC2022.Alchemy",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "ChocolateChipFabrication",
+            "request": "launch",
+            "mainClass": "ICPC2022.ChocolateChipFabrication",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "FadingWind",
+            "request": "launch",
+            "mainClass": "ICPC2022.FadingWind",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "LoneKnight",
+            "request": "launch",
+            "mainClass": "ICPC2022.LoneKnight",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "ThreeDice",
+            "request": "launch",
+            "mainClass": "ICPC2022.ThreeDice",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "MovieNight",
+            "request": "launch",
+            "mainClass": "ICPC2022Qualifiers.MovieNight",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "Knapsack",
+            "request": "launch",
+            "mainClass": "Knapsack",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "KnightTour",
+            "request": "launch",
+            "mainClass": "KnightTour",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "LegoBlocks",
+            "request": "launch",
+            "mainClass": "LegoBlocks",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "MazeMan",
+            "request": "launch",
+            "mainClass": "MazeMan",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "NQueens",
+            "request": "launch",
+            "mainClass": "NQueens",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "StringAnagrams",
+            "request": "launch",
+            "mainClass": "StringAnagrams",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "SubstringDiff",
+            "request": "launch",
+            "mainClass": "SubstringDiff",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "TestCaseOutputter",
+            "request": "launch",
+            "mainClass": "TestCaseOutputter",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "alphabetspam",
+            "request": "launch",
+            "mainClass": "Textbook.Ch2.alphabetspam",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "jugglingpatterns",
+            "request": "launch",
+            "mainClass": "Textbook.Ch2.jugglingpatterns",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "knigsoftheforest",
+            "request": "launch",
+            "mainClass": "Textbook.Ch2.knigsoftheforest",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "quickbrownfox",
+            "request": "launch",
+            "mainClass": "Textbook.Ch2.quickbrownfox",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "TheCoinChangeProblem",
+            "request": "launch",
+            "mainClass": "TheCoinChangeProblem",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "TheCoinChangeProblemIncorrect",
+            "request": "launch",
+            "mainClass": "TheCoinChangeProblemIncorrect",
+            "projectName": "CodingPlayground_61909868"
+        }
+    ]
+}

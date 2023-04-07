@@ -2,9 +2,8 @@ package ICPC2022;
 
 // https://open.kattis.com/problems/loneknight
 
-import java.util.*;
 import java.io.*;
-
+import java.util.*;
 /*
  * Logistically to solve:
  * 
@@ -31,8 +30,9 @@ public class LoneKnight {
         }
         List<Integer> xs = new ArrayList<>(xsSet);
         List<Integer> ys = new ArrayList<>(ysSet);
-        Collections.sort(xs);
-        Collections.sort(ys);
+        // These started erroring randomly
+        // Collections.sort(xs);
+        // Collections.sort(ys);
         boards = new Board[xs.size() + 1][ys.size() + 1];
 
         // Set up all boards
