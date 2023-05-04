@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "circular",
+            "request": "launch",
+            "mainClass": "FinalSP23.circular",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "secretchamber",
+            "request": "launch",
+            "mainClass": "FinalSP23.secretchamber",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "DataStructuresTest",
             "request": "launch",
             "mainClass": "DataStructures.DataStructuresTest",

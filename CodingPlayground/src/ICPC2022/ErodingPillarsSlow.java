@@ -4,12 +4,12 @@ import java.util.*;
 import java.io.*;
 
 @SuppressWarnings({"unchecked"})
-public class ErodingPillars {
+public class ErodingPillarsSlow {
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     static ArrayList<Jump> jumps;
     static Pillar[] pillars;
     static boolean[] severedFromStart;
-    static int[] pointer;
+    static boolean[][] connected;
     static LinkedList<Integer>[] adj;
 
     public static void main(String[] args) throws IOException {
@@ -19,8 +19,9 @@ public class ErodingPillars {
         int n = Integer.parseInt(reader.readLine().trim());
         jumps = new ArrayList<>((n + 1) * (n + 1));
         pillars = new Pillar[n + 1];
+        severedFromStart = new boolean[n + 1];
+        connected = new boolean[n + 1][n + 1];
         adj = new LinkedList[n + 1];
-        pointer = new int[n + 1];
         
         // Record all pillar locations
         pillars[0] = new Pillar(0, 0, 0);
@@ -40,26 +41,82 @@ public class ErodingPillars {
                 if (jmp.dist > max) {
                     continue;
                 }
+                connected[i][j] = true;
+                connected[j][i] = true;
+                if (i != j && j != 0)
+                    adj[i].add(j);
                 if (j > i) {
                     jumps.add(jmp);
                 }
             }
             if (i == 0) {
                 Collections.sort(jumps);
-                max = jumps.get(jumps.size()).dist;
+                max = jumps.get(0).dist;
             }
         }
         
         Collections.sort(jumps);
         for (int i = 0; i < jumps.size(); i++) {
             Jump j = jumps.get(i);
-            adj[j.p1].add(j.p2);
-            adj[j.p2].add(j.p1);
+
+            connected[j.p1][j.p2] = false;
+            connected[j.p2][j.p1] = false;
+            if (j.p1 == 0) {
+                severedFromStart[j.p2] = true;
+            }
+
+            if (!valid(j.p1)) return j.dist;
+            if (!valid(j.p2)) return j.dist;
         }
         return -1;
     }
 
-    static boolean DFS(int node) {
+    // DFS in "shells"
+    // Add all adj from start at once
+    // Process all adj from edges away 1
+    // Add all adj from edges away 1
+    static boolean valid(int start) {
+        if (!severedFromStart[start]) return true;
+        Deque<Integer> stack = new LinkedList<>();
+        boolean[] visited = new boolean[pillars.length];
+        visited[start] = true;
+        int size = adj[start].size();
+        int numPaths = 0;
+        for (int i = 0; i < size; i++) {
+            int next = adj[start].poll(); 
+            if (!connected[start][next]) continue;
+            adj[start].add(next);
+            stack.add(next);
+            visited[next] = true;
+            if (!severedFromStart[next]) {
+                numPaths++;
+                if (numPaths >= 2) return true;
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            if (numPaths >= 2) return true;
+            if (stack.size() == 1 && numPaths == 0) return false;
+            Deque<Integer> newStack = new LinkedList<>();
+            while (!stack.isEmpty()) {
+                if (numPaths >= 2) return true;
+                int curr = stack.pollLast();
+                size = adj[curr].size();
+                for (int i = 0; i < size; i++) {
+                    int next = adj[curr].poll();
+                    if (!connected[curr][next]) continue;
+                    adj[curr].add(next);
+                    if (visited[next]) continue;
+                    newStack.add(next);
+                    visited[next] = true;
+                    if (!severedFromStart[next]) {
+                        numPaths++;
+                        if (numPaths >= 2) return true;
+                    }
+                } 
+            }
+            stack = newStack;
+        }
         
         return false;
     }
@@ -93,7 +150,7 @@ public class ErodingPillars {
         }
         
         public int compareTo(Jump o) {
-            return (int) Math.signum(this.dist - o.dist);
+            return (int) Math.signum(o.dist - this.dist);
         }
     }
 }

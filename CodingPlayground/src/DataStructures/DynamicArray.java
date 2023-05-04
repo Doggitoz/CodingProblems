@@ -57,6 +57,13 @@ public class DynamicArray {
         return -1;
     }
 
+    public boolean contains(int value) {
+        for (int i = 0; i < this.arr.length; i++) {
+            if (this.arr[i] == value) return true;
+        }
+        return false;
+    }
+
     public boolean isEmpty() {
         return idx < 0;
     }
@@ -68,6 +75,4 @@ public class DynamicArray {
         }
         System.out.printf("%d]\n", this.arr[idx - 1]);
     }
-    // Could remove and insert an element by array shifting. Could add these methods?
-    // This could be done using an array copy, similar to grow.
 }
