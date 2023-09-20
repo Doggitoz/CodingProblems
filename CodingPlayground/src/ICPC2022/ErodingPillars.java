@@ -93,7 +93,7 @@ public class ErodingPillars {
         }
         
         public int compareTo(Jump o) {
-            return (int) Math.signum(this.dist - o.dist);
+            return (int) Math.signum(o.dist - this.dist);
         }
     }
 }

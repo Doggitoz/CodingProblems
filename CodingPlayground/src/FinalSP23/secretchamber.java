@@ -2,7 +2,7 @@ package FinalSP23;
 
 import java.util.*;
 import java.io.*;
-
+ @SuppressWarnings("unchecked")
 public class secretchamber {
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException {

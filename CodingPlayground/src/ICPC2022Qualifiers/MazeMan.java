@@ -1,3 +1,5 @@
+package ICPC2022Qualifiers;
+
 import java.util.*;
 import java.io.*;
 

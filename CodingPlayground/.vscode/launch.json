@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ColorTubes",
+            "request": "launch",
+            "mainClass": "ICPC2022.ColorTubes",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "HuntTheWumpus",
+            "request": "launch",
+            "mainClass": "ICPC2022.HuntTheWumpus",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "NumberOfDigitOne",
+            "request": "launch",
+            "mainClass": "NumberOfDigitOne",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "circular",
             "request": "launch",
             "mainClass": "FinalSP23.circular",
