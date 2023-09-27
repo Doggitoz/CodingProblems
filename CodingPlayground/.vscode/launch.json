@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "champernownecount",
+            "request": "launch",
+            "mainClass": "ICPC2022.champernownecount",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "familyvisits",
+            "request": "launch",
+            "mainClass": "ICPC2022.familyvisits",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "ColorTubes",
             "request": "launch",
             "mainClass": "ICPC2022.ColorTubes",
