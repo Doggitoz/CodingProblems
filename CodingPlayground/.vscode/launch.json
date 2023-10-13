@@ -6,6 +6,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DayTwo",
+            "request": "launch",
+            "mainClass": "Advent2022.DayTwo",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "DayOne",
+            "request": "launch",
+            "mainClass": "Advent2022.DayOne",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "naq23_contestadvancement",
+            "request": "launch",
+            "mainClass": "naq23_contestadvancement",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "naq23_waterjournal",
+            "request": "launch",
+            "mainClass": "naq23_waterjournal",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "naq23_linesperhour",
+            "request": "launch",
+            "mainClass": "naq23_linesperhour",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "streetsahead",
+            "request": "launch",
+            "mainClass": "ICPC2022.streetsahead",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "champernownecount",
             "request": "launch",
             "mainClass": "ICPC2022.champernownecount",

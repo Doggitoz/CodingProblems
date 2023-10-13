@@ -23,7 +23,7 @@ public class secretchamber {
         }
 
         for (int i = 0; i < 26; i ++) {
-            PriorityQueue<Character> Q = new PriorityQueue<>();
+            Queue<Character> Q = new LinkedList<>();
             Q.add((char) (i + 'a'));
             boolean[] visited = new boolean[26];
             while (!Q.isEmpty()) {

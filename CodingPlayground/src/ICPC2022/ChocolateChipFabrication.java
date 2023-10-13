@@ -5,7 +5,7 @@ package ICPC2022;
 import java.util.*;
 import java.io.*;
 
-public class ChocolateChipFabrication {
+public class chocolatechipfabrication {
     public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     public static boolean[][] visited;
     public static int[] nm;
@@ -14,10 +14,10 @@ public class ChocolateChipFabrication {
         visited = new boolean[nm[0]][nm[1]];
         Queue<Tuple> one = new LinkedList<>();
         Queue<Tuple> two = new LinkedList<>();
-        for (int i = 0; i < nm[0]; i++) {
+        for (short i = 0; i < nm[0]; i++) {
             String row = reader.readLine();
             // Add all empties and edge X's to queue
-            for (int j = 0; j < nm[1]; j++) {
+            for (short j = 0; j < nm[1]; j++) {
                 if (row.charAt(j) == '-') {
                     visited[i][j] = true;
                     one.add(new Tuple(i, j));
@@ -51,10 +51,10 @@ public class ChocolateChipFabrication {
     }
 
     public static void AddNeighbors(Tuple curr, Queue<Tuple> Q) {
-        if (CheckValidSquare(new Tuple(curr.x + 1, curr.y))) Q.add(new Tuple(curr.x + 1, curr.y));
-        if (CheckValidSquare(new Tuple(curr.x - 1, curr.y))) Q.add(new Tuple(curr.x - 1, curr.y));
-        if (CheckValidSquare(new Tuple(curr.x, curr.y + 1))) Q.add(new Tuple(curr.x, curr.y + 1));
-        if (CheckValidSquare(new Tuple(curr.x, curr.y - 1))) Q.add(new Tuple(curr.x, curr.y - 1));
+        if (CheckValidSquare(new Tuple((short)(curr.x + 1), curr.y))) Q.add(new Tuple((short)(curr.x + 1), curr.y));
+        if (CheckValidSquare(new Tuple((short)(curr.x - 1), curr.y))) Q.add(new Tuple((short)(curr.x - 1), curr.y));
+        if (CheckValidSquare(new Tuple(curr.x, (short)(curr.y + 1)))) Q.add(new Tuple(curr.x, (short)(curr.y + 1)));
+        if (CheckValidSquare(new Tuple(curr.x, (short)(curr.y - 1)))) Q.add(new Tuple(curr.x, (short)(curr.y - 1)));
     }
 
     public static boolean CheckValidSquare(Tuple t) {
@@ -65,9 +65,9 @@ public class ChocolateChipFabrication {
     }
     
     public static class Tuple {
-        int x;
-        int y;
-        public Tuple(int x, int y) {
+        short x;
+        short y;
+        public Tuple(short x, short y) {
             this.x = x;
             this.y = y;
         }
