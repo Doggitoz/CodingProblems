@@ -1,5 +1,7 @@
 package GameOfWar;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -16,11 +18,11 @@ import java.util.Queue;
  * 
  * Bob and Sarah have also added a couple house rules:
  * - Bob will always be dealt to first at the start of the game.
- * - They will always place the lowest cards won onto the bottom of their deck first.
+ * - Cards will always be placed into the bottom of the winners deck in ascending order.
  * 
  * One of the main problems with War is the large amount of time it can take. Bob and Sarah want to make sure that the
  * order of the deck will result in a game that does not take too long. Given the permutation of the deck at the start of the
- * game, determine if the winner is Bob or Sarah, or neither if the game takes more than 10^5 turns.
+ * game, determine how many moves the game will take to complete or if it is too long.
  */
 
 /*
@@ -28,11 +30,19 @@ import java.util.Queue;
  * You are given an integer array of size 52 that contains the numerical value of each card in the starting deck. Index 0 is the top card.
  * 
  * OUTPUT
- * Output "Bob" if Bob would win or "Sarah" if Sarah would win. If the game would take more than 10^5 turns, output "Neither".
+ * Output the number of turns before completion.
  */
 
 public class GameOfWar {
-    public String solve(int[] deck) {
+
+    static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) {
+        GameOfWar g = new GameOfWar();
+        GameOfWarTest gt = new GameOfWarTest();
+        System.out.println(g.solve(gt.fileToArray("one.txt")));
+    }
+
+    public int solve(int[] deck) {
         Queue<Integer> Bob = new LinkedList<>();
         Queue<Integer> Sarah = new LinkedList<>();
         for (int i = 0; i < 52; i++) {
@@ -41,8 +51,7 @@ public class GameOfWar {
         }
         PriorityQueue<Integer> stored = new PriorityQueue<>();
         for (int i = 0; i < Math.pow(10, 5); i++) {
-            if (Sarah.isEmpty()) return "Bob";
-            if (Bob.isEmpty()) return "Sarah";
+            if (Sarah.isEmpty() || Bob.isEmpty()) return i;
             int bob = Bob.poll();
             int sarah = Sarah.poll();
             stored.add(bob);
@@ -58,6 +67,6 @@ public class GameOfWar {
                 }
             }
         }
-        return "Nothing";
+        return -1;
     }
 }
