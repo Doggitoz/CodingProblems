@@ -1,0 +1,46 @@
+package Advent2022;
+
+import java.util.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+
+public class DayFour {
+
+    public static void main(String[] args) throws IOException {
+        String path = "c:\\Users\\cpWhe\\Documents\\GitHub\\CodingProblems\\CodingPlayground\\test-cases\\advent-2022\\four.txt";
+        List<String> lines = Files.readAllLines(Paths.get(path));
+        partOne(lines);
+        partTwo(lines);
+    }
+
+    static void partOne(List<String> lines) {
+        int sum = 0;
+        for (String l : lines) {
+            String[] split = l.split(",");
+            int[] p1 = Arrays.stream(split[0].split("-")).mapToInt(Integer::parseInt).toArray();
+            int[] p2 = Arrays.stream(split[1].split("-")).mapToInt(Integer::parseInt).toArray();
+            if (checkIfInInterval(p1[0], p2[0], p2[1]) && checkIfInInterval(p1[1], p2[0], p2[1])) sum++; 
+            else if (checkIfInInterval(p2[0], p1[0], p1[1]) && checkIfInInterval(p2[1], p1[0], p1[1])) sum++;
+        }
+        System.out.println(sum);
+    }
+
+    static boolean checkIfInInterval(int check, int lower, int upper) {
+        return check >= lower && check <= upper;
+    }
+
+    static void partTwo(List<String> lines) {
+        int sum = 0;
+        for (String l : lines) {
+            String[] split = l.split(",");
+            int[] p1 = Arrays.stream(split[0].split("-")).mapToInt(Integer::parseInt).toArray();
+            int[] p2 = Arrays.stream(split[1].split("-")).mapToInt(Integer::parseInt).toArray();
+            if (checkIfInInterval(p1[0], p2[0], p2[1]) || checkIfInInterval(p1[1], p2[0], p2[1])) sum++; 
+            else if (checkIfInInterval(p2[0], p1[0], p1[1]) || checkIfInInterval(p2[1], p1[0], p1[1])) sum++;
+        }
+        System.out.println(sum);
+    }
+
+}

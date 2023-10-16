@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DayFour",
+            "request": "launch",
+            "mainClass": "Advent2022.DayFour",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "DayThree",
+            "request": "launch",
+            "mainClass": "Advent2022.DayThree",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "DayTwo",
             "request": "launch",
             "mainClass": "Advent2022.DayTwo",
