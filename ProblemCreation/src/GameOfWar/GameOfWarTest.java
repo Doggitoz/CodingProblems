@@ -20,14 +20,23 @@ public class GameOfWarTest {
             Collections.shuffle(lines);
             int t = g.solve(linesToArray(lines));
             System.out.println(t);
-            if (t >= Math.pow(10, 5)) {
-                System.out.println("Hit more than 100000");
-                for (int i = 0; i < 51; i++) {
-                    System.out.println(lines.get(i));
-                }
-                System.out.print(lines.get(51));
-                break;
+            System.out.println("------------");
+            for (int i = 0; i < 51; i++) {
+                System.out.println(lines.get(i));
             }
+            System.out.print(lines.get(51));
+            break;
+            // if (t != -1)
+            //     System.out.println(t);
+
+            // if (t > 300) {
+            //     System.out.println("---------");
+            //     for (int i = 0; i < 51; i++) {
+            //         System.out.println(lines.get(i));
+            //     }
+            //     System.out.print(lines.get(51));
+            //     break;
+            // }
         }
     }
 
@@ -65,8 +74,8 @@ public class GameOfWarTest {
         return deck;
     }
 
-    @Test
-    public void one() {
-        String fileName = "one.txt";
-    }
+    // @Test
+    // public void one() {
+    //     String fileName = "one.txt";
+    // }
 }
