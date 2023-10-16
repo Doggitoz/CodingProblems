@@ -24,6 +24,11 @@ public class DayOne {
         //     .max();
         // System.out.println(max.getAsInt());
         List<String> lines = Files.readAllLines(Paths.get(path));
+        partOne(lines);
+        partTwo(lines);
+    }
+
+    static void partOne(List<String> lines) {
         int max = 0;
         int sum = 0;
         for (String l : lines) {
@@ -32,5 +37,23 @@ public class DayOne {
             max = Math.max(max, sum);
         }
         System.out.println(max);
+    }
+
+    static void partTwo(List<String> lines) {
+        PriorityQueue<Integer> elves = new PriorityQueue<>();
+        int sum = 0;
+        for (String l : lines) {
+            if (l.equals("")) {
+                elves.add(-1 * sum);
+                sum = 0; 
+                continue;
+            }
+            sum += Integer.parseInt(l.trim());
+        }
+        sum = 0;
+        for (int i = 0; i < 3; i++) {
+            sum += elves.poll() * -1;
+        }
+        System.out.println(sum);
     }
 }

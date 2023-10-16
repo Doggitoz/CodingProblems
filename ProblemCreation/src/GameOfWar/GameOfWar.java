@@ -22,7 +22,7 @@ import java.util.Queue;
  * 
  * One of the main problems with War is the large amount of time it can take. Bob and Sarah want to make sure that the
  * order of the deck will result in a game that does not take too long. Given the permutation of the deck at the start of the
- * game, determine how many moves the game will take to complete or if it is too long.
+ * game, determine how many moves the game will take to complete (will never be infinite).
  */
 
 /*
@@ -38,8 +38,7 @@ public class GameOfWar {
     static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) {
         GameOfWar g = new GameOfWar();
-        GameOfWarTest gt = new GameOfWarTest();
-        System.out.println(g.solve(gt.fileToArray("one.txt")));
+        System.out.println(g.solve(GameOfWarTest.fileToArray("four.txt")));
     }
 
     public int solve(int[] deck) {
@@ -50,7 +49,7 @@ public class GameOfWar {
             else Sarah.add(deck[i]);
         }
         PriorityQueue<Integer> stored = new PriorityQueue<>();
-        for (int i = 0; i < Math.pow(10, 5); i++) {
+        for (int i = 0; i < 1000002; i++) {
             if (Sarah.isEmpty() || Bob.isEmpty()) return i;
             int bob = Bob.poll();
             int sarah = Sarah.poll();
