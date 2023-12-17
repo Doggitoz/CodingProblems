@@ -1,6 +1,9 @@
 package Advent2022;
 
 import java.util.*;
+
+import Util.MyFileReader;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,8 +12,7 @@ import java.nio.file.Paths;
 public class DayFour {
 
     public static void main(String[] args) throws IOException {
-        String path = "c:\\Users\\cpWhe\\Documents\\GitHub\\CodingProblems\\CodingPlayground\\test-cases\\advent-2022\\four.txt";
-        List<String> lines = Files.readAllLines(Paths.get(path));
+        List<String> lines = Util.MyFileReader.ReadFile("advent-2022", "four");
         partOne(lines);
         partTwo(lines);
     }

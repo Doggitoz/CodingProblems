@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DayOne",
+            "request": "launch",
+            "mainClass": "Advent2023.DayOne",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "DayFour",
             "request": "launch",
             "mainClass": "Advent2022.DayFour",
