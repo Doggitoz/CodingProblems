@@ -47,7 +47,6 @@ public class DayOne {
                 }
 
             }
-            Matcher matcher = Pattern.compile("")
         }
 
         System.out.println(sum);
