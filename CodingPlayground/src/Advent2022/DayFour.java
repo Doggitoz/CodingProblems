@@ -2,11 +2,7 @@ package Advent2022;
 
 import java.util.*;
 
-import Util.MyFileReader;
-
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 public class DayFour {

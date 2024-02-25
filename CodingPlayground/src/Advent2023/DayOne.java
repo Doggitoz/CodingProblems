@@ -1,8 +1,5 @@
 package Advent2023;
-import java.io.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DayOne {
     public static void main(String[] args) {
@@ -34,7 +31,7 @@ public class DayOne {
 
     public static void PartTwo(List<String> lines) {
         int sum = 0;
-        String pattern = "one|two|three|four|five|six|seven|eight|nine";
+        //String pattern = "one|two|three|four|five|six|seven|eight|nine";
 
         for (int i = 0; i < lines.size(); i++) {
             String str = lines.get(i);

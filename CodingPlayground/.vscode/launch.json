@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "perfectsquares",
+            "request": "launch",
+            "mainClass": "Leetcode.perfectsquares",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "DayOne",
             "request": "launch",
             "mainClass": "Advent2023.DayOne",
