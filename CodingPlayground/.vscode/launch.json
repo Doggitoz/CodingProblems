@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "abcstring",
+            "request": "launch",
+            "mainClass": "ICPC2023.abcstring",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "perfectsquares",
             "request": "launch",
             "mainClass": "Leetcode.perfectsquares",
