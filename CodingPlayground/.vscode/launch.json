@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "streetsbehind",
+            "request": "launch",
+            "mainClass": "ICPC2023.streetsbehind",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
+            "name": "crammingforfinals",
+            "request": "launch",
+            "mainClass": "ICPC2023.crammingforfinals",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "abcstring",
             "request": "launch",
             "mainClass": "ICPC2023.abcstring",
