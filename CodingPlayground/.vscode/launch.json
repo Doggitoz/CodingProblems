@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "balancedtreepath",
+            "request": "launch",
+            "mainClass": "ICPC2023.balancedtreepath",
+            "projectName": "CodingPlayground_61909868"
+        },
+        {
+            "type": "java",
             "name": "streetsbehind",
             "request": "launch",
             "mainClass": "ICPC2023.streetsbehind",
