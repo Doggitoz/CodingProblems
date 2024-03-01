@@ -1,4 +1,4 @@
-package ICPC2022Qualifiers;
+package NAQ22;
 
 import java.util.*;
 import java.io.*;
