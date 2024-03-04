@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "triplesevens",
+            "request": "launch",
+            "mainClass": "ICPC2023.triplesevens",
+            "projectName": "CodingPlayground_5eb8824"
+        },
+        {
+            "type": "java",
             "name": "balancedtreepath",
             "request": "launch",
             "mainClass": "ICPC2023.balancedtreepath",

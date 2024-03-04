@@ -43,8 +43,9 @@ public class crammingforfinals {
                 Interval iv = intervals.poll();
                 if (iv.a > right + 1) return 0;
                 right = Math.max(right, iv.b);
+                // Need to optimize this
                 for (int i = iv.a; i <= iv.b; i++) {
-                    if (i < 1) continue;
+                    if (i < 1) { i = 0; continue; }
                     if (i > cols) break;
                     if (nearby[i] == -1) continue;
                     nearby[i]++;
@@ -56,7 +57,7 @@ public class crammingforfinals {
             }
 
             for (int i = 1; i <= cols; i++) {
-                if (nearby[i] == 0) return 0;
+                if (min == 1) break;
                 if (nearby[i] == -1) continue;
                 min = Math.min(min, nearby[i]);
             }
@@ -80,7 +81,7 @@ public class crammingforfinals {
         public int compareTo(Interval o) {
             if (this.row == o.row) {
                 if (this.a == o.a) {
-                    return (this.b - this.a) - (o.b - o.a);
+                    return this.b  - o.b;
                 }
                 else {
                     return this.a - o.a;
